@@ -3,7 +3,6 @@ package com.goryanskiy.searchview.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +15,14 @@ import android.widget.Toast;
 import com.goryanskiy.searchview.R;
 import com.goryanskiy.searchview.github_api.model.Follower;
 import com.goryanskiy.searchview.util.ImageReader;
-import com.goryanskiy.searchview.util.Loggers;
 import com.goryanskiy.searchview.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
- * @author Ivan V on 29.10.2017.
- * @version 1.0
+ * Created by goryanskiy on 13.02.18
  */
 public class FollowerListAdapter extends RecyclerView.Adapter<FollowerListAdapter.FollowerViewHolder> implements Filterable {
     private static final String TAG = FollowerListAdapter.class.getSimpleName();

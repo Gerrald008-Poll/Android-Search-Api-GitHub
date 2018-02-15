@@ -27,8 +27,8 @@ import java.util.List;
 
 
 /**
- * @author Ivan V on 29.10.2017.
- * @version 1.0
+ * Created by goryanskiy on 13.02.18
+ *
  */
 public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAdapter.RepositoryViewHolder> implements Filterable {
     private static final String OWNER = "owner";

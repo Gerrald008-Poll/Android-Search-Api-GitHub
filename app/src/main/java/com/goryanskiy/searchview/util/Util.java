@@ -12,8 +12,8 @@ import java.util.List;
 
 
 /**
- * @author Ivan V on 30.10.2017.
- * @version 1.0
+ * Created by goryanskiy on 13.02.18
+ *
  */
 public class Util {
 

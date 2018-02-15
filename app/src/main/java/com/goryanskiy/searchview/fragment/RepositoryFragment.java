@@ -2,19 +2,15 @@ package com.goryanskiy.searchview.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.goryanskiy.searchview.MainActivity;
 import com.goryanskiy.searchview.R;
-
 import com.goryanskiy.searchview.adapter.RepositoryListAdapter;
 import com.goryanskiy.searchview.github_api.model.Repository;
-
 
 import java.util.ArrayList;
 import java.util.List;

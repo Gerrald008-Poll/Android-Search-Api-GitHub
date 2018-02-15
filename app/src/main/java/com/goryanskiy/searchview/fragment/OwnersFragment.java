@@ -20,14 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.goryanskiy.searchview.MainActivity;
 import com.goryanskiy.searchview.R;
 import com.goryanskiy.searchview.adapter.FollowerListAdapter;
 import com.goryanskiy.searchview.github_api.GitHubManager;
 import com.goryanskiy.searchview.github_api.model.Follower;
 import com.goryanskiy.searchview.github_api.model.Owners;
 import com.goryanskiy.searchview.github_api.model.Repository;
-import com.goryanskiy.searchview.github_api.model.response.ListRepository;
 import com.goryanskiy.searchview.util.AppProgressDialog;
 import com.goryanskiy.searchview.util.ImageReader;
 import com.goryanskiy.searchview.util.Loggers;
