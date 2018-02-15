@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GitHub Viewer</string>
+
+    <string name="user_name">User name</string>
+    <string name="search_followers">REPOSITORY</string>
+    <string name="followers">Followers</string>
+    <string name="search">Search</string>
+
+    <!-- Base Api GitHub v3 URL -->
+    <string name="base_url">https://api.github.com/</string>
+</resources>
