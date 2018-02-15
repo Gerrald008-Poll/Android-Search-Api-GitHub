@@ -8,4 +8,9 @@
 
     <!-- Base Api GitHub v3 URL -->
     <string name="base_url">https://api.github.com/</string>
+    <string name="id">id:</string>
+    <string name="location">location:</string>
+    <string name="company">company:</string>
+    <string name="blog">blog:</string>
+    <string name="following">Following:</string>
 </resources>

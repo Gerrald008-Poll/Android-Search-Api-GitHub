@@ -31,15 +31,11 @@ public class GitHubManager {
         return instance;
     }
 
-    public Flowable<List<Follower>> getFollowing(String username){
-        return service.getFollowing(username);
-    }
-
-    public Flowable<ListRepository> getRepository(String repository){
-        return service.getRepository(repository);
-    }
-
+    public Flowable<List<Follower>> getFollowing(String username){return service.getFollowing(username);}
+    public Flowable<ListRepository> getRepository(String repository){return service.getRepository(repository);}
+    public Flowable<List<Repository>> getRepositoryOwner(String username){return service.getRepositoryOwner(username);}
     public Flowable<Owners> getOwner(String login){
         return service.getOwner(login);
     }
+
 }

@@ -2,6 +2,7 @@ package com.goryanskiy.searchview.github_api;
 
 import com.goryanskiy.searchview.github_api.model.Follower;
 import com.goryanskiy.searchview.github_api.model.Owners;
+import com.goryanskiy.searchview.github_api.model.Repository;
 import com.goryanskiy.searchview.github_api.model.response.ListRepository;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface ApiService {
     Flowable<ListRepository> getRepository(@Query("q") String repository);
 
     @GET("users/{username}/repos")
-    Flowable<ListRepository> getRepositoryOwner(@Query("q") String username);
+    Flowable<List<Repository>> getRepositoryOwner(@Path("username") String username);
 
     @GET("/users/{username}/following")
     Flowable<List<Follower>> getFollowing(@Path("username") String username);

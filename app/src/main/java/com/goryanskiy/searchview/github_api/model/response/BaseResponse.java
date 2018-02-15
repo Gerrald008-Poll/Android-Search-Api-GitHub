@@ -12,7 +12,7 @@ public class BaseResponse {
     @SerializedName("incomplete_results")
     private boolean result;
 
-    protected BaseResponse(){}
+    BaseResponse(){}
 
     public boolean inResult(){return result;}
     public void setResult(boolean result){this.result=result;}

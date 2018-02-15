@@ -31,6 +31,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:contentDescription="@null"
                     android:id="@+id/iv_owner_user_logo"
                     android:layout_width="180dp"
                     android:layout_height="160dp"
@@ -66,7 +67,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="id: "
+                            android:text="@string/id"
                             android:textSize="14sp" />
 
                         <TextView
@@ -90,7 +91,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="location: "
+                            android:text="@string/location"
                             android:textSize="14sp" />
 
                         <TextView
@@ -116,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="company: "
+                            android:text="@string/company"
                             android:textSize="14sp" />
 
                         <TextView
@@ -144,7 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:layout_marginTop="5dp"
-                            android:text="blog: "
+                            android:text="@string/blog"
                             android:textSize="14sp" />
 
                         <TextView
@@ -160,7 +161,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_search_followers"
+                        android:id="@+id/btn_search_repository"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -185,7 +186,7 @@
                     android:layout_marginBottom="5dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="Following:"
+                    android:text="@string/following"
                     android:textColor="#596d79"
                     android:textSize="18sp"
                     android:textStyle="bold" />

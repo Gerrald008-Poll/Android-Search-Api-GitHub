@@ -3,15 +3,19 @@ package com.goryanskiy.searchview.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +26,8 @@ import com.goryanskiy.searchview.adapter.FollowerListAdapter;
 import com.goryanskiy.searchview.github_api.GitHubManager;
 import com.goryanskiy.searchview.github_api.model.Follower;
 import com.goryanskiy.searchview.github_api.model.Owners;
+import com.goryanskiy.searchview.github_api.model.Repository;
+import com.goryanskiy.searchview.github_api.model.response.ListRepository;
 import com.goryanskiy.searchview.util.AppProgressDialog;
 import com.goryanskiy.searchview.util.ImageReader;
 import com.goryanskiy.searchview.util.Loggers;
@@ -35,6 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class OwnersFragment extends Fragment {
     private static final String TAG = OwnersFragment.class.getSimpleName();
+    public static final String REPOSITORY = "repository";
     private static final String OWNER = "owner";
 
     private Disposable disposable;
@@ -60,7 +67,7 @@ public class OwnersFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_owners, container, false);
         CardView cardView = view.findViewById(R.id.cv_owner);
@@ -70,6 +77,8 @@ public class OwnersFragment extends Fragment {
         tvOwnerId = view.findViewById(R.id.tv_owner_id);
         tvOwnerLocation = view.findViewById(R.id.tv_owner_location);
         tvOwnerCompany = view.findViewById(R.id.tv_owner_company);
+        Button btnRepository = view.findViewById(R.id.btn_search_repository);
+        btnRepository.setOnClickListener(v -> onClickButtonRepository());
         recyclerView = view.findViewById(R.id.rv_follower_list_owner);
         if (getArguments() != null) {
             owners = getArguments().getParcelable(OWNER);
@@ -105,15 +114,47 @@ public class OwnersFragment extends Fragment {
                             Log.e(TAG, "Get owners error", e);
                         });
     }
+    private void getRepositoriesOwner(String userName) {
+        Util.hideKeyboard(getActivity());
+        disposable = GitHubManager.getInstance(getActivity())
+                .getRepositoryOwner(userName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> AppProgressDialog.show(getActivity()))
+                .doOnTerminate(AppProgressDialog::dismiss)
+                .subscribe(this::initRepositoryList,
+                        e -> {
+                            initFailure();
+                            Log.e(TAG, "Get repository error", e);
+                        });
+    }
 
     private void initOwner(Owners out) {
         this.owners = out;
         tvOwnerName.setText(owners.getName());
         tvOwnerId.setText(String.valueOf(owners.getId()));
         tvGitHubOwnerURL.setText(owners.getBlog());
-        tvGitHubOwnerURL.setOnClickListener(v -> onClickLinkBlog());
+        if(!TextUtils.isEmpty(owners.getBlog())){
+            tvGitHubOwnerURL.setOnClickListener(v -> onClickLinkBlog());
+        }
         tvOwnerLocation.setText(owners.getLocation());
         tvOwnerCompany.setText(owners.getCompany());
+    }
+    private void initFollowing(List<Follower> followers){
+        this.followers = followers;
+        Loggers.i(TAG, "initFollowing: "+followers.size());
+        onFollowerList();
+    }
+    private void initFailure() {
+        Toast.makeText(getActivity(), "Error getting Owners list", Toast.LENGTH_SHORT).show();
+    }
+    private void initRepositoryList(List<Repository> list) {
+        Loggers.i(TAG, "repositories "+list.size());
+        assert getContext() != null;
+        ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, RepositoryFragment.getInstance(list))
+                .addToBackStack(REPOSITORY)
+                .commit();
     }
 
     private void onClickLinkBlog() {
@@ -121,20 +162,12 @@ public class OwnersFragment extends Fragment {
         intent.setData(Uri.parse(owners.getBlog()));
         startActivity(intent);
     }
-
-    private void initFollowing(List<Follower> followers){
-        this.followers = followers;
-        Loggers.i(TAG, "initFollowing: "+followers.size());
-        onFollowerList();
+    private void onClickButtonRepository(){
+        getRepositoriesOwner(owners.getLogin());
     }
-
     private void onFollowerList() {
         FollowerListAdapter adapter = new FollowerListAdapter(getActivity(), followers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-    }
-
-    private void initFailure() {
-        Toast.makeText(getActivity(), "Error getting Owners list", Toast.LENGTH_SHORT).show();
     }
 }
